@@ -17,6 +17,15 @@ public class ListAggregatorTest {
     }
 
 
+    @Test
+    public void max_bug_7263() {
+        list = Arrays.asList(-1,-4,-5);
+
+        ListAggregator aggregator = new ListAggregator();
+        int max = aggregator.max(list);
+
+        Assertions.assertEquals(-1,max);
+    }
 
     @Test
     public void sum() {
