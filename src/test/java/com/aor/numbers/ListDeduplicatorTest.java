@@ -1,5 +1,6 @@
 package com.aor.numbers;
 
+import jdk.internal.org.jline.terminal.impl.LineDisciplineTerminal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,13 @@ public class ListDeduplicatorTest {
     }
     @Test
     public void deduplicate() {
-        ListDeduplicator deduplicator = new ListDeduplicator();
+        class StubListSorter implements GenericListSorter {
+            @Override public List<Integer> sort(List<Integer> list){
+                return Arrays.asList(1,2,4,5);
+            }
+        }
+        StubListSorter sorter = new StubListSorter();
+        ListDeduplicator deduplicator = new ListDeduplicator(sorter);
         List<Integer> distinct = deduplicator.deduplicate(list);
 
         Assertions.assertEquals(expected, distinct);
@@ -29,7 +36,13 @@ public class ListDeduplicatorTest {
     public void bug_8726() {
         list = Arrays.asList(1,2,4,2);
 
-        ListDeduplicator dedup = new ListDeduplicator();
+        class StubListSorter implements GenericListSorter{
+            @Override public List<Integer> sort(List<Integer> list) {
+                return Arrays.asList(1,2,2,4);
+            }
+        }
+        StubListSorter sorter = new StubListSorter();
+        ListDeduplicator dedup = new ListDeduplicator(sorter);
         List<Integer> ret = dedup.deduplicate(list);
 
         Assertions.assertEquals(Arrays.asList(1,2,4),ret);

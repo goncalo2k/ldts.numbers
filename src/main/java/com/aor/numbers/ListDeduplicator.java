@@ -9,15 +9,21 @@ import java.util.List;
  */
 public class ListDeduplicator implements GenericListDeduplicator {
 
+    private final GenericListSorter sorter;
     /**
      * Removes duplicate numbers from a list.
      * @return A list having the same numbers as the original
      * but withou duplicates. The order of the numbers might
      * change.
      */
+
+    public ListDeduplicator(GenericListSorter sorter) {
+    this.sorter=sorter;
+    }
+
     public List<Integer> deduplicate(List<Integer> list) {
-        ListSorter listSorter = new ListSorter();
-        List<Integer> sorted = listSorter.sort(list);
+        //ListSorter listSorter = new ListSorter();
+        List<Integer> sorted = sorter.sort(list);
         List<Integer> unique = new ArrayList<>();
 
         Integer last = null;
