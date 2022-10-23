@@ -30,8 +30,6 @@ public class ListAggregatorTest {
 
     @Test
     public void max() {
-        List<Integer> list = Arrays.asList(1,2,4,2,5);
-
         ListAggregator aggregator = new ListAggregator();
         int max = aggregator.max(list);
 
@@ -40,8 +38,6 @@ public class ListAggregatorTest {
 
     @Test
     public void min() {
-        List<Integer> list = Arrays.asList(1,2,4,2,5);
-
         ListAggregator aggregator = new ListAggregator();
         int min = aggregator.min(list);
 
@@ -50,7 +46,6 @@ public class ListAggregatorTest {
 
     @Test
     public void distinct() {
-
         ListAggregator aggregator = new ListAggregator();
         GenericListDeduplicator deduplicator = Mockito.mock(GenericListDeduplicator.class);
         Mockito.when(deduplicator.deduplicate(Mockito.anyList())).thenReturn(Arrays.asList(1,2,4,5));
